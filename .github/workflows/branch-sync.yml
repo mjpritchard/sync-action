@@ -16,8 +16,8 @@ jobs:
       
       - name: Set up git
         run: |
-          git config --global user.name 'mjpritchard'
-          git config --global user.email 'matt.pritchard@stfc.ac.uk'
+          git config --global user.name "${GITHUB_ACTOR}"
+          git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
       - name: Push changes to dev when main is updated
         if: github.ref == 'refs/heads/main'
