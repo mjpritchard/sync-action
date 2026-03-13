@@ -1,0 +1,28 @@
+name: Sync main to dev
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  branch-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Set up git
+        run: |
+          git config --global user.name 'mjpritchard'
+          git config --global user.email 'matt.pritchard@stfc.ac.uk'
+
+      - name: Push changes to dev when main is updated
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git fetch origin
+          git checkout dev
+          git merge main
+          git push origin dev
